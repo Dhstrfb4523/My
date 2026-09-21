@@ -36,8 +36,11 @@
 ONCLICK=window.open('http:\\\\www.MySite.org\\MyFoto.htm');>
 </FORM>
    <a href="index.html">Главная</a>
-   <div id="output"></div>
+    <textarea id="about" rows="3" placeholder="Немного о себе"></textarea>
 
+      <button type="submit">Показать данные</button>
+    </form>
+   <div id="output"></div>
     <script>
       document.getElementById('myForm').addEventListener('submit', function(e) {
         e.preventDefault(); // останавливаем перезагрузку страницы
