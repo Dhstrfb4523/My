@@ -36,5 +36,38 @@
 ONCLICK=window.open('http:\\\\www.MySite.org\\MyFoto.htm');>
 </FORM>
    <a href="index.html">Главная</a>
+   <div id="output"></div>
+
+    <script>
+      document.getElementById('myForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // останавливаем перезагрузку страницы
+
+        // --- Переменные для данных ---
+        const name = document.getElementById('name').value;
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const course = document.getElementById('course').value;
+        const about = document.getElementById('about').value || 'не указано';
+
+        // Собираем языки в переменную-массив
+        const languages = [];
+        if (document.getElementById('lang1').checked) languages.push('Паскаль');
+        if (document.getElementById('lang2').checked) languages.push('С++');
+        if (document.getElementById('lang3').checked) languages.push('Ассемблер');
+
+        const langText = languages.length ? languages.join(', ') : 'не указаны';
+
+        // --- Вывод через переменную ---
+        const outputDiv = document.getElementById('output');
+        outputDiv.style.display = 'block';
+        outputDiv.innerHTML = `
+          <h3>Ваши данные:</h3>
+          <p><strong>Имя:</strong> ${name}</p>
+          <p><strong>Пол:</strong> ${gender}</p>
+          <p><strong>Курс:</strong> ${course}</p>
+          <p><strong>Языки:</strong> ${langText}</p>
+          <p><strong>О себе:</strong> ${about}</p>
+        `;
+      });
+    </script>
 </BODY>
 </HTML>
