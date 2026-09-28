@@ -6,25 +6,27 @@
 <SCRIPT>
 function showData() {
     var form = document.forms[0];
-    var msg = "Имя: " + form.name.value + "\n";
+    var msg = "<H3>Введённая информация:</H3>";
+    msg += "<P><B>Имя:</B> " + form.name.value + "</P>";
     
     // Пол
     for (var i = 0; i < form.gender.length; i++) {
-        if (form.gender[i].checked) msg += "Пол: " + form.gender[i].value + "\n";
+        if (form.gender[i].checked) msg += "<P><B>Пол:</B> " + form.gender[i].value + "</P>";
     }
     
-    msg += "Курс: " + form.course.value + "\n";
+    msg += "<P><B>Курс:</B> " + form.course.value + "</P>";
     
     // Языки
     var langs = "";
     for (var i = 0; i < form.lang.length; i++) {
         if (form.lang[i].checked) langs += form.lang[i].value + ", ";
     }
-    msg += "Языки: " + (langs || "не выбрано") + "\n";
+    msg += "<P><B>Языки:</B> " + (langs || "не выбрано") + "</P>";
     
-    msg += "О себе: " + form.about.value;
+    msg += "<P><B>О себе:</B> " + form.about.value + "</P>";
     
-    alert(msg);
+    // Выводим на страницу
+    document.getElementById("result").innerHTML = msg;
 }
 </SCRIPT>
 </HEAD>
@@ -57,6 +59,10 @@ function showData() {
 <INPUT TYPE='reset' VALUE='Сброс значений полей'>
 </FORM>
 
+<!-- Сюда будет выводиться информация -->
+<DIV ID="result" STYLE="margin-top: 20px; padding: 15px; border: 1px solid #333; background: #f0f0f0;"></DIV>
+
+<BR>
 <a href="index.html">Главная</a> |
 <a href="Tables.html">Таблицы</a>
 </BODY>
