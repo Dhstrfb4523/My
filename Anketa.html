@@ -5,97 +5,58 @@
 <TITLE>Анкета</TITLE>
 <SCRIPT>
 function showData() {
-    // Получаем значение имени
-    var name = document.querySelector('input[name="name"]').value;
+    var form = document.forms[0];
+    var msg = "Имя: " + form.name.value + "\n";
     
-    // Получаем выбранный пол
-    var gender = "";
-    var radios = document.querySelectorAll('input[name="gender"]');
-    for (var i = 0; i < radios.length; i++) {
-        if (radios[i].checked) {
-            gender = radios[i].value;
-        }
+    // Пол
+    for (var i = 0; i < form.gender.length; i++) {
+        if (form.gender[i].checked) msg += "Пол: " + form.gender[i].value + "\n";
     }
     
-    // Получаем выбранный курс
-    var course = document.getElementById("course").value;
-    var courseText = "";
-    switch(course) {
-        case "first": courseText = "первый"; break;
-        case "second": courseText = "второй"; break;
-        case "third": courseText = "третий"; break;
-        case "fourth": courseText = "четвёртый"; break;
-        default: courseText = "не выбран";
+    msg += "Курс: " + form.course.value + "\n";
+    
+    // Языки
+    var langs = "";
+    for (var i = 0; i < form.lang.length; i++) {
+        if (form.lang[i].checked) langs += form.lang[i].value + ", ";
     }
+    msg += "Языки: " + (langs || "не выбрано") + "\n";
     
-    // Получаем выбранные языки программирования
-    var langs = [];
-    var checkboxes = document.querySelectorAll('input[name="lang"]');
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            langs.push(checkboxes[i].value);
-        }
-    }
-    var langsText = langs.length > 0 ? langs.join(", ") : "не выбрано";
+    msg += "О себе: " + form.about.value;
     
-    // Получаем текст "о себе"
-    var about = document.querySelector('textarea[name="about"]').value;
-    
-    // Формируем сообщение
-    var message = "=== Введённая информация ===\n\n";
-    message += "Имя: " + (name || "не указано") + "\n";
-    message += "Пол: " + (gender || "не указан") + "\n";
-    message += "Курс: " + courseText + "\n";
-    message += "Языки программирования: " + langsText + "\n";
-    message += "О себе: " + (about || "не указано") + "\n";
-    
-    // Выводим окно с информацией
-    alert(message);
+    alert(msg);
 }
 </SCRIPT>
 </HEAD>
 <BODY>
 <h1>АНКЕТА</h1>
 <FORM>
-<!-- Поле ввода имени -->
-<BR>Ваше имя: <INPUT TYPE='text' NAME='name' VALUE=''><BR>
+<BR>Ваше имя: <INPUT TYPE='text' NAME='name'><BR>
 
-<!-- Группа переключателей -->
 <BR>Ваш пол:
 <INPUT TYPE='radio' NAME='gender' VALUE='Мужской'>Мужской
 <INPUT TYPE='radio' NAME='gender' VALUE='Женский'>Женский<BR>
 
-<!-- Выбор курса -->
 <BR><B>На каком вы курсе ?</B></BR>
-<BR>
-<select id="course" name="course" required>
-<option value="" disabled selected>Выберите курс</option>
-<option value="first">первый</option>
-<option value="second">второй</option>
-<option value="third">третий</option>
-<option value="fourth">четвёртый</option>
-</select>
-<BR>
+<select NAME="course">
+<option value="первый">первый</option>
+<option value="второй">второй</option>
+<option value="третий">третий</option>
+<option value="четвёртый">четвёртый</option>
+</select><BR>
 
-<!-- Группа флажков -->
 <BR><B>Какие языки программирования вы знаете ?</B></BR>
-<BR><INPUT TYPE='checkbox' NAME='lang' VALUE='Паскаль'>Паскаль
-<BR><INPUT TYPE='checkbox' NAME='lang' VALUE='СИ'>СИ
-<BR><INPUT TYPE='checkbox' NAME='lang' VALUE='Ассемблер'>Ассемблер<BR>
+<INPUT TYPE='checkbox' NAME='lang' VALUE='Паскаль'>Паскаль<BR>
+<INPUT TYPE='checkbox' NAME='lang' VALUE='СИ'>СИ<BR>
+<INPUT TYPE='checkbox' NAME='lang' VALUE='Ассемблер'>Ассемблер<BR>
 
-<!-- Поле "о себе" -->
 <BR><B>Напишите несколько слов о себе</B></BR>
-<BR>
-<TEXTAREA NAME='about' ROWS='4' COLS='40'></TEXTAREA>
-<BR>
+<TEXTAREA NAME='about' ROWS='3' COLS='40'></TEXTAREA><BR>
 
-<!-- Кнопки -->
-<BR>
 <INPUT TYPE='button' VALUE='Отправка данных' ONCLICK='showData()'>
 <INPUT TYPE='reset' VALUE='Сброс значений полей'>
 </FORM>
 
-<BR>
 <a href="index.html">Главная</a> |
 <a href="Tables.html">Таблицы</a>
 </BODY>
