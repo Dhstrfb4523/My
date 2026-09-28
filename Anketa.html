@@ -19,7 +19,7 @@ function showData() {
     // Языки
     var langs = "";
     for (var i = 0; i < form.lang.length; i++) {
-        if (form.lang[i].checked) langs += form.lang[i].value + ", ";
+        if (form.lang[i].checked) langs += form.lang[i].value;
     }
     msg += "<P><B>Языки:</B> " + (langs || "не выбрано") + "</P>";
     
