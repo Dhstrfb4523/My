@@ -1,36 +1,9 @@
+<!DOCTYPE html>
 <HTML>
 <HEAD>
-<TITLE>Переключатели и флажки</TITLE>
-</HEAD>
-<BODY>
-   <h1>АНКЕТА</h1>
-<FORM>
-<!-- Поле ввода -->
-<BR>Вше имя:<INPUT TYPE='text' VALUE=' '><BR>
-<BR>Ваш пол:
-<!-- Группа переключателей -->
-<INPUT TYPE='radio' NAME='color'>Мужской
-<INPUT TYPE='radio' NAME='color'>Женский<BR>
-<!-- Группа флажков -->
-<BR><B>На каком вы курсе ?</B></BR>
-<BR>
-<select id="course" name="course" required>
-<option value="" disabled selected>Выберите курс</option>
-<option value="first">первый</option>
-<option value="second">второй</option>
-<option value="third">третий</option>
-<option value="fourth">четвёртый</option>
-</select>  
-<BR>
-<BR><B>Какие языки программирования вы знаете ?</B></BR>
-<BR><INPUT TYPE= 'checkbox' NAME='fruit'>Паскаль
-<BR><INPUT TYPE= 'checkbox' NAME='fruit'>СИ
-<BR><INPUT TYPE= 'checkbox' NAME='fruit'>Ассемблер<BR>
-<BR><B>Напишите несколько слов о себе</B></BR>
-   <BR>
-   <INPUT TYPE='text' VALUE=' '>
-   <BR>
-   <SCRIPT>
+<META CHARSET="UTF-8">
+<TITLE>Анкета</TITLE>
+<SCRIPT>
 function showData() {
     // Получаем значение имени
     var name = document.querySelector('input[name="name"]').value;
@@ -80,11 +53,50 @@ function showData() {
     alert(message);
 }
 </SCRIPT>
+</HEAD>
+<BODY>
+<h1>АНКЕТА</h1>
+<FORM>
+<!-- Поле ввода имени -->
+<BR>Ваше имя: <INPUT TYPE='text' NAME='name' VALUE=''><BR>
+
+<!-- Группа переключателей -->
+<BR>Ваш пол:
+<INPUT TYPE='radio' NAME='gender' VALUE='Мужской'>Мужской
+<INPUT TYPE='radio' NAME='gender' VALUE='Женский'>Женский<BR>
+
+<!-- Выбор курса -->
+<BR><B>На каком вы курсе ?</B></BR>
+<BR>
+<select id="course" name="course" required>
+<option value="" disabled selected>Выберите курс</option>
+<option value="first">первый</option>
+<option value="second">второй</option>
+<option value="third">третий</option>
+<option value="fourth">четвёртый</option>
+</select>
+<BR>
+
+<!-- Группа флажков -->
+<BR><B>Какие языки программирования вы знаете ?</B></BR>
+<BR><INPUT TYPE='checkbox' NAME='lang' VALUE='Паскаль'>Паскаль
+<BR><INPUT TYPE='checkbox' NAME='lang' VALUE='СИ'>СИ
+<BR><INPUT TYPE='checkbox' NAME='lang' VALUE='Ассемблер'>Ассемблер<BR>
+
+<!-- Поле "о себе" -->
+<BR><B>Напишите несколько слов о себе</B></BR>
+<BR>
+<TEXTAREA NAME='about' ROWS='4' COLS='40'></TEXTAREA>
+<BR>
+
 <!-- Кнопки -->
-<button>Отправка данных</button>
-<button>Сброс значений полей</button>
+<BR>
+<INPUT TYPE='button' VALUE='Отправка данных' ONCLICK='showData()'>
+<INPUT TYPE='reset' VALUE='Сброс значений полей'>
 </FORM>
-   <a href="index.html">Главная</a>
-   <a href="Tables.html">Таблицы</a>
+
+<BR>
+<a href="index.html">Главная</a> |
+<a href="Tables.html">Таблицы</a>
 </BODY>
 </HTML>
