@@ -20,7 +20,7 @@
 <option value="second">второй</option>
 <option value="third">третий</option>
 <option value="fourth">четвёртый</option>
-</select>
+</select>  
 <BR>
 <BR><B>Какие языки программирования вы знаете ?</B></BR>
 <BR><INPUT TYPE= 'checkbox' NAME='fruit'>Паскаль
@@ -30,6 +30,56 @@
    <BR>
    <INPUT TYPE='text' VALUE=' '>
    <BR>
+   <SCRIPT>
+function showData() {
+    // Получаем значение имени
+    var name = document.querySelector('input[name="name"]').value;
+    
+    // Получаем выбранный пол
+    var gender = "";
+    var radios = document.querySelectorAll('input[name="gender"]');
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            gender = radios[i].value;
+        }
+    }
+    
+    // Получаем выбранный курс
+    var course = document.getElementById("course").value;
+    var courseText = "";
+    switch(course) {
+        case "first": courseText = "первый"; break;
+        case "second": courseText = "второй"; break;
+        case "third": courseText = "третий"; break;
+        case "fourth": courseText = "четвёртый"; break;
+        default: courseText = "не выбран";
+    }
+    
+    // Получаем выбранные языки программирования
+    var langs = [];
+    var checkboxes = document.querySelectorAll('input[name="lang"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            langs.push(checkboxes[i].value);
+        }
+    }
+    var langsText = langs.length > 0 ? langs.join(", ") : "не выбрано";
+    
+    // Получаем текст "о себе"
+    var about = document.querySelector('textarea[name="about"]').value;
+    
+    // Формируем сообщение
+    var message = "=== Введённая информация ===\n\n";
+    message += "Имя: " + (name || "не указано") + "\n";
+    message += "Пол: " + (gender || "не указан") + "\n";
+    message += "Курс: " + courseText + "\n";
+    message += "Языки программирования: " + langsText + "\n";
+    message += "О себе: " + (about || "не указано") + "\n";
+    
+    // Выводим окно с информацией
+    alert(message);
+}
+</SCRIPT>
 <!-- Кнопки -->
 <button>Отправка данных</button>
 <button>Сброс значений полей</button>
