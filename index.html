@@ -1,52 +1,105 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
     <title>Домашняя страница студента</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Стили для меню */
+        .sidebar {
+            width: 20%;
+            background: #f4f4f4;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .sidebar a:hover {
+            background: #e0e0e0;
+        }
+        
+        /* Основной контент */
+        .content {
+            margin-left: 20%;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-
-<table width="100%" cellpadding="5" cellspacing="0">
-    <tr>
-        <!-- ЛЕВОЕ УЗКОЕ МЕНЮ -->
-        <td width="150" valign="top" bgcolor="#f0f0f0">
-            <h3>Меню</h3>
+    <!-- Боковое меню -->
+    <div class="sidebar">
+        <nav>
             <ul>
-                <li><a href="index.html">Главная</a></li>
                 <li><a href="Anketa.html">Анкета</a></li>
                 <li><a href="Tables.html">Таблицы</a></li>
                 <li><a href="Упражнение 15.html">Карта</a></li>
             </ul>
-        </td>
+        </nav>
+    </div>
 
-        <!-- ОСНОВНОЙ КОНТЕНТ -->
-        <td valign="top">
+    <!-- Основной контент -->
+    <div class="content">
+        <header>
             <h1>Моя домашняя страница</h1>
             <p>Добро пожаловать на мой сайт</p>
+        </header>
 
+        <section id="about">
             <h2>Обо мне</h2>
-            <ul>
-                <img src="фото.jpg" width="500">
-                <li>Меня зовут: <b>Приваленков Никита Алексеевич</b></li>
-                <li>Электронная почта: <a href="mailto:nprivalenkov@gmail.com">nprivalenkov@gmail.com</a></li>
-            </ul>
+            <img src="фото.jpg" width="500">
+            <p><strong>Меня зовут:</strong> Приваленков Никита Алексеевич</p>
+            <p><strong>Электронная почта:</strong> <a href="mailto:nprivalenkov@gmail.com">nprivalenkov@gmail.com</a></p>
+        </section>
 
+        <section id="college">
             <h2>Мой колледж и группа</h2>
             <p>Я учусь в Слободском колледже педагогики и социальных отношений.</p>
-            <p>Моя группа: <b>24П-1</b></p>
+            <p>Моя группа: 24П-1</p>
             <img src="группа.jpg" width="500">
-            <p>Ссылка на сайт колледжа: <a href="https://slobkoll.ru/" target="_blank">https://slobkoll.ru/</a></p>
+            <p>Ссылка на сайт колледжа: <a href="https://slobkoll.ru/">https://slobkoll.ru/</a></p>
+        </section>
 
-            <p><a href="Kotletki.mp3">Котлетки</a></p>
-
+        <section id="profession">
             <h2>Моя будущая профессия</h2>
-            <p>Я получаю образование по специальности "Информационные системы и программирование". Моя цель - стать программистом.</p>
+            <p>Я получаю образование по специальности \"Информационные системы и программирование\". Моя цель - стать программистом.</p>
+        </section>
 
+        <section id="hobbies">
             <h2>Мои увлечения</h2>
             <p>В свободное время я увлекаюсь: игрой на гитаре</p>
-        </td>
-    </tr>
-</table>
+        </section>
 
+        <footer>
+            <a href="Anketa.html">Анкета</a>
+            <a href="Tables.html">Таблицы</a>
+            <a href="Упражнение 15.html">Карта</a>
+        </footer>
+    </div>
+
+    <!-- Медиаэлементы -->
+    <video src="GroupChat.mp4" controls width="640" height="480"></video>
+
+    <audio controls autoplay>
+        <source src="wav/Kotletki.wav">
+        <source src="mp3/Kotletki.mp3">
+        <a href="Kotletki.mp3">Котлетки</a>
+    </audio>
 </body>
 </html>
