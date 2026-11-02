@@ -38,31 +38,30 @@
 <body>
 
     <h2>Форма заполнения данных</h2>
-    <p><span class="required-mark">*</span> – необходимые для заполнения поля</p>
 
     <form name="contactForm" onsubmit="return validateForm()">
         
         <!-- Ваше имя -->
         <div class="form-group">
-            <label for="username">Ваше имя<span class="required-mark">*</span>:</label>
+            <label for="username">Ваше имя<span class="required-mark"></span>:</label>
             <input type="text" id="username" name="username">
         </div>
 
         <!-- Пароль -->
         <div class="form-group">
-            <label for="password">Пароль <span class="required-mark">*</span>:</label>
+            <label for="password">Пароль <span class="required-mark"></span>:</label>
             <input type="password" id="password" name="password">
         </div>
 
         <!-- Подтверждение пароля -->
         <div class="form-group">
-            <label for="confirmPassword">Подтверждение пароля<span class="required-mark">*</span>:</label>
+            <label for="confirmPassword">Подтверждение пароля<span class="required-mark"></span>:</label>
             <input type="password" id="confirmPassword" name="confirmPassword">
         </div>
 
         <!-- Электронный адрес -->
         <div class="form-group">
-            <label for="email">Электронный адрес<span class="required-mark">*</span>:</label>
+            <label for="email">Электронный адрес<span class="required-mark"></span>:</label>
             <input type="text" id="email" name="email">
         </div>
 
@@ -74,7 +73,7 @@
 
         <!-- Сообщение -->
         <div class="form-group">
-            <label for="message">Сообщение<span class="required-mark">*</span>:</label>
+            <label for="message">Сообщение<span class="required-mark"></span>:</label>
             <textarea id="message" name="message"></textarea>
         </div>
 
@@ -135,6 +134,6 @@
             return true;
         }
     </script>
-
+<a href="index.html">Главная</a>
 </body>
 </html>
