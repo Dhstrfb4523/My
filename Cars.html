@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Выбор и увеличение картинок</title>
+    <style>
+        /* Стили контейнера */
+        .bas {
+            position: relative;
+            width: 1000px;
+            margin: auto;
+            height: 500px; /* Добавлена высота, чтобы абсолютное позиционирование работало корректно */
+        }
+
+        /* Стили изображений */
+        .im {
+            position: absolute;
+            width: 300px;
+            border: 1px solid #000000;
+            z-index: 1;
+            cursor: pointer; /* Указатель в виде руки при наведении */
+        }
+
+        /* Координаты для картинок (из раздела 6.2) */
+        #i1 { left: 10px; top: 10px; }
+        #i2 { left: 322px; top: 10px; }
+        #i3 { left: 634px; top: 10px; }
+        #i4 { left: 10px; top: 200px; }
+        #i5 { left: 322px; top: 200px; }
+        #i6 { left: 634px; top: 200px; }
+    </style>
+
+    <script>
+        // --- Глобальные переменные для логики клика (раздел 6.2) ---
+        let y = 1; // Идентификатор состояния клика (1 - обычное, 2 - увеличенное)
+        let w = 0; // Переменная для сохранения координаты Left
+        let h = 0; // Переменная для сохранения координаты Top
+
+        // --- Обработчик события наведения мыши (раздел 6.1) ---
+        addEventListener("mouseover", (ev) => {
+            let e = ev.target;
+
+            // Если увеличенная картинка активна (y==2), эффект наведения отключаем,
+            // чтобы не мешать просмотру увеличенного изображения.
+            if (y === 2) return;
+
+            if (e.tagName == "IMG") {
+                // Если навели на картинку: затемняем остальные
+                for (let i = 1; i < 7; i++) {
+                    let b = "i" + i;
+                    if (e.id != b) {
+                        let t = document.getElementById(b).style;
+                        t.transition = "opacity 1s";
+                        t.opacity = 0.1;
+                    }
+                }
+            } else {
+                // Если увеличенная картинка НЕ активна и мышь ушла с картинки: возвращаем прозрачность
+                for (let i = 1; i < 7; i++) {
+                    let b = "i" + i;
+                    let t = document.getElementById(b).style;
+                    t.transition = "opacity 0.5s";
+                    t.opacity = 1;
+                }
+            }
+        });
+
+        // --- Обработчик события клика (раздел 6.2) ---
+        addEventListener("click", (ev) => {
+            let e = ev.target;
+
+            // Проверяем, что клик был именно по картинке
+            if (e.tagName == "IMG") {
+                let t = document.getElementById(e.id).style;
+
+                // Логика первого клика (увеличение)
+                if (y == 1) {
+                    // Сохраняем текущие координаты перед перемещением
+                    let d = document.getElementById(e.id);
+                    w = d.offsetLeft;
+                    h = d.offsetTop;
+
+                    // Меняем состояние
+                    y = 2;
+
+                    // Скрываем остальные картинки полностью
+                    for (let i = 1; i < 7; i++) {
+                        let b = "i" + i;
+                        if (e.id != b) {
+                            let p = document.getElementById(b).style;
+                            p.transition = "opacity 0.5s"; // Быстрое исчезновение
+                            p.opacity = 0;
+                        }
+                    }
+
+                    // Увеличиваем и центрируем выбранную картинку
+                    t.zIndex = 10; // Поднимаем выше всех
+                    t.transition = "width 1s, left 1s, top 1s";
+                    t.width = 600 + "px";
+                    t.left = 200 + "px";
+                    t.top = 100 + "px";
+                } 
+                // Логика второго клика (возврат)
+                else {
+                    // Возвращаем состояние
+                    y = 1;
+
+                    // Показываем остальные картинки
+                    for (let i = 1; i < 7; i++) {
+                        let b = "i" + i;
+                        let p = document.getElementById(b).style;
+                        p.transition = "opacity 1s";
+                        p.opacity = 1;
+                    }
+
+                    // Возвращаем картинку на исходное место и размер
+                    t.transition = "width 1s, left 1s, top 1s";
+                    t.width = 300 + "px";
+                    t.left = w + "px";
+                    t.top = h + "px";
+                    
+                    // Небольшая задержка перед понижением z-index, чтобы анимация прошла поверх других
+                    setTimeout(() => {
+                         t.zIndex = 1;
+                    }, 1000);
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="bas">
+        <!-- Используем placeholder.com для демонстрации, замените src на свои файлы img/p1.png и т.д. -->
+        <img id="i1" class="im" src="https://placehold.co/300x200?text=Car+1" alt="Фото">
+        <img id="i2" class="im" src="https://placehold.co/300x200?text=Car+2" alt="Фото">
+        <img id="i3" class="im" src="https://placehold.co/300x200?text=Car+3" alt="Фото">
+        <img id="i4" class="im" src="https://placehold.co/300x200?text=Car+4" alt="Фото">
+        <img id="i5" class="im" src="https://placehold.co/300x200?text=Car+5" alt="Фото">
+        <img id="i6" class="im" src="https://placehold.co/300x200?text=Car+6" alt="Фото">
+    </div>
+</body>
+</html>
