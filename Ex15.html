@@ -38,46 +38,38 @@
 <body>
 
     <h2>Форма заполнения данных</h2>
-
     <form name="contactForm" onsubmit="return validateForm()">
-        
-        <!-- Ваше имя -->
+
         <div class="form-group">
             <label for="username">Ваше имя<span class="required-mark"></span>:</label>
             <input type="text" id="username" name="username">
         </div>
 
-        <!-- Пароль -->
         <div class="form-group">
             <label for="password">Пароль <span class="required-mark"></span>:</label>
             <input type="password" id="password" name="password">
         </div>
 
-        <!-- Подтверждение пароля -->
         <div class="form-group">
             <label for="confirmPassword">Подтверждение пароля<span class="required-mark"></span>:</label>
             <input type="password" id="confirmPassword" name="confirmPassword">
         </div>
 
-        <!-- Электронный адрес -->
         <div class="form-group">
             <label for="email">Электронный адрес<span class="required-mark"></span>:</label>
             <input type="text" id="email" name="email">
         </div>
 
-        <!-- Тема сообщения -->
         <div class="form-group">
             <label for="subject">Тема сообщения:</label>
             <input type="text" id="subject" name="subject">
         </div>
 
-        <!-- Сообщение -->
         <div class="form-group">
             <label for="message">Сообщение<span class="required-mark"></span>:</label>
             <textarea id="message" name="message"></textarea>
         </div>
 
-        <!-- Кнопки -->
         <div class="buttons">
             <input type="submit" value="Отправить">
             <input type="reset" value="Очистить">
@@ -86,7 +78,6 @@
 
     <script>
         function validateForm() {
-            // Получаем ссылки на элементы формы
             var form = document.contactForm;
             var nameField = form.username;
             var passField = form.password;
@@ -94,42 +85,36 @@
             var emailField = form.email;
             var messageField = form.message;
 
-            // 1. Проверка имени: заполнено ли поле
             if (nameField.value.trim() === "") {
                 alert("Пожалуйста, введите ваше имя.");
                 nameField.focus(); // Курсор в поле имени
                 return false;
             }
 
-            // 2. Проверка пароля: введен ли и длина > 4 символов
             if (passField.value.length <= 4) {
                 alert("Пароль должен содержать более 4 символов.");
                 passField.focus(); // Курсор в поле пароля
                 return false;
             }
 
-            // 3. Проверка совпадения паролей
             if (passField.value !== confirmPassField.value) {
                 alert("Пароли не совпадают.");
                 confirmPassField.focus(); // Курсор в поле подтверждения пароля
                 return false;
             }
 
-            // 4. Проверка Email: заполнено и содержит символ @
             if (emailField.value.trim() === "" || emailField.value.indexOf("@") === -1) {
                 alert("Введите корректный электронный адрес (должен содержать @).");
                 emailField.focus(); // Курсор в поле email
                 return false;
             }
 
-            // 5. Проверка сообщения: заполнено и больше 10 символов
             if (messageField.value.trim().length <= 10) {
                 alert("Сообщение должно содержать более 10 символов.");
                 messageField.focus(); // Курсор в поле сообщения
                 return false;
             }
 
-            // Если все проверки пройдены
             alert("Форма успешно заполнена!");
             return true;
         }
