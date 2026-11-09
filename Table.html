@@ -40,13 +40,18 @@
         const lightBlue = '#00BFFF';  
         const darkBlue = '#00008B';   
 
-        for (let row = 0; row < 10; row++) {
+        for (let row = 0; row < 10; row++) 
+        {
             let tr = document.createElement('tr');
-            for (let col = 0; col < 10; col++) {
+            for (let col = 0; col < 10; col++) 
+            {
                 let td = document.createElement('td');
-                if (row + col >= 9) {
+                if (row + col >= 9) 
+                {
                     td.style.backgroundColor = darkBlue;
-                } else {
+                } 
+                else 
+                {
                     td.style.backgroundColor = lightBlue;
                 }
                 tr.appendChild(td);
