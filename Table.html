@@ -32,24 +32,20 @@
 </head>
 <body>
 
-    <iframe src="menu.html" class="menu-frame"></iframe>
-
     <div class="gradient-container">
-        <h1>Градиентная таблица 10×10</h1>
-        <p>Голубой → Тёмно-синий по диагонали</p>
+        <h1>Градиентная таблица</h1>
         <table class="gradient-table" id="gradTable"></table>
     </div>
 
     <script>
         const table = document.getElementById('gradTable');
-        const lightBlue = '#00BFFF';   // Голубой (DeepSkyBlue)
-        const darkBlue = '#00008B';    // Тёмно-синий (DarkBlue)
+        const lightBlue = '#00BFFF';  
+        const darkBlue = '#00008B';   
 
         for (let row = 0; row < 10; row++) {
             let tr = document.createElement('tr');
             for (let col = 0; col < 10; col++) {
                 let td = document.createElement('td');
-                // Если сумма индексов >= 9 — тёмно-синий, иначе голубой
                 if (row + col >= 9) {
                     td.style.backgroundColor = darkBlue;
                 } else {
