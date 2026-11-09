@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Градиентная таблица</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gradient-container {
+            max-width: 600px;
+            margin: 30px auto;
+            text-align: center;
+            padding-right: 260px;
+        }
+        @media (max-width: 1100px) {
+            .gradient-container { padding-right: 0; margin-top: 280px; }
+        }
+        .gradient-container h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .gradient-table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            border: 2px solid #333;
+        }
+        .gradient-table td {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe src="menu.html" class="menu-frame"></iframe>
+
+    <div class="gradient-container">
+        <h1>Градиентная таблица 10×10</h1>
+        <p>Голубой → Тёмно-синий по диагонали</p>
+        <table class="gradient-table" id="gradTable"></table>
+    </div>
+
+    <script>
+        const table = document.getElementById('gradTable');
+        const lightBlue = '#00BFFF';   // Голубой (DeepSkyBlue)
+        const darkBlue = '#00008B';    // Тёмно-синий (DarkBlue)
+
+        for (let row = 0; row < 10; row++) {
+            let tr = document.createElement('tr');
+            for (let col = 0; col < 10; col++) {
+                let td = document.createElement('td');
+                // Если сумма индексов >= 9 — тёмно-синий, иначе голубой
+                if (row + col >= 9) {
+                    td.style.backgroundColor = darkBlue;
+                } else {
+                    td.style.backgroundColor = lightBlue;
+                }
+                tr.appendChild(td);
+            }
+            table.appendChild(tr);
+        }
+    </script>
+
+</body>
+</html>
