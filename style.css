@@ -28,7 +28,7 @@ ul li {
 }
 
 ul li::before {
-  content: "&#128293";
+  content: "\1F525 ";
   position: absolute;
   left: 0;
   top: 0;
