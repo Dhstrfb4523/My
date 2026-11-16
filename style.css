@@ -31,7 +31,7 @@ ul li {
 }
 
 ul li::before {
-  content: "🔥";
+  content: "&#128293";
   position: absolute;
   left: 0;
   top: 0;
