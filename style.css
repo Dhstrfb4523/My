@@ -20,7 +20,7 @@ ul {
 }
 
 ul li::before {
-  content: "\1F525 ";
+  content: "&#128293 ";
   margin-right: 5px;
 }
 
