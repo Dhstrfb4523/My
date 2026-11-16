@@ -1,106 +1,30 @@
-
-body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-
 h1 {
-  color: #333;
-  text-align: center;
-  border-bottom: 3px solid #007bff;
-  padding-bottom: 10px;
-}
-
-h2 {
-  color: #007bff;
-  margin-top: 30px;
-  border-left: 4px solid #007bff;
-  padding-left: 10px;
-}
-
-/* Нумерованный список */
-.numbered-list {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  counter-reset: item;
-  list-style-type: none;
-}
-
-.numbered-list li {
-  counter-increment: item;
-  padding: 8px 0;
-  font-size: 18px;
-}
-
-.numbered-list li::before {
-  content: counter(item) ". ";
-  color: #007bff;
+  font-size: 32px;
   font-weight: bold;
-  margin-right: 10px;
+  margin-bottom: 20px;
 }
 
-/* Многоуровневый список */
-.multilevel-list {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  counter-reset: section;
-  list-style-type: none;
-}
-
-.multilevel-list li {
-  counter-increment: section;
-  padding: 10px 0;
-  font-size: 17px;
-}
-
-.multilevel-list > li::before {
-  content: counter(section) ". ";
-  color: #28a745;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.multilevel-list ol {
-  margin-left: 30px;
-  margin-top: 10px;
-  counter-reset: subsection;
-  list-style-type: none;
-}
-
-.multilevel-list ol li {
-  counter-increment: subsection;
-  padding: 5px 0;
-  font-size: 16px;
-}
-
-.multilevel-list ol li::before {
-  content: counter(section) "." counter(subsection) " ";
-  color: #28a745;
-  margin-right: 10px;
-}
-
-/* Маркированный список с символом 🔥 */
-.fire-list {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  list-style-type: none;
-}
-
-.fire-list li {
-  padding: 8px 0;
+ol {
   font-size: 18px;
+  padding-left: 40px;
 }
 
-.fire-list li::before {
+ol ol {
+  padding-left: 30px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 30px;
+  margin-top: 5px;
+}
+
+ul li::before {
   content: "\1F525 ";
-  margin-right: 10px;
+  margin-right: 5px;
+}
+
+ul li {
+  font-size: 16px;
+  padding: 2px 0;
 }
