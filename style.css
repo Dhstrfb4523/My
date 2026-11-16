@@ -27,8 +27,8 @@ ul li {
   padding: 2px 0;
 }
 
-ul li::before {
-  content: "&#128293";
+ul li {
+  content: "🔥";
   position: absolute;
   left: 0;
   top: 0;
