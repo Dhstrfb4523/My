@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Настоящий светофор</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #0a0e27 0%, #1a1f3a 100%);
+    font-family: 'Segoe UI', sans-serif;
+    color: #e2e8f0;
+    gap: 25px;
+    padding: 20px;
+  }
+
+  h1 { margin: 0; font-size: 22px; opacity: 0.85; }
+
+  /* Корпус светофора */
+  .traffic-light {
+    position: relative;
+    background: linear-gradient(145deg, #2a2a2a, #0f0f0f);
+    border: 3px solid #000;
+    border-radius: 18px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    box-shadow:
+      0 15px 40px rgba(0,0,0,0.7),
+      inset 0 2px 4px rgba(255,255,255,0.05);
+  }
+
+  /* Козырьки над лампами */
+  .lamp-wrap {
+    position: relative;
+    width: 110px;
+    height: 110px;
+  }
+  .lamp-wrap::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -6px;
+    right: -6px;
+    height: 20px;
+    background: #1a1a1a;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    border: 2px solid #000;
+    z-index: 2;
+  }
+
+  .lamp {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #1a1a1a;
+    border: 3px solid #000;
+    transition: background 0.15s, box-shadow 0.15s;
+  }
+
+  .lamp.red.on    { background: radial-gradient(circle at 35% 35%, #ff6b6b, #c40000);
+                    box-shadow: 0 0 40px 12px rgba(255,40,40,0.75), inset 0 0 15px rgba(0,0,0,0.4); }
+  .lamp.yellow.on { background: radial-gradient(circle at 35% 35%, #fff08a, #e0a800);
+                    box-shadow: 0 0 40px 12px rgba(255,210,50,0.75), inset 0 0 15px rgba(0,0,0,0.4); }
+  .lamp.green.on  { background: radial-gradient(circle at 35% 35%, #8aff9e, #00a040);
+                    box-shadow: 0 0 40px 12px rgba(50,255,100,0.75), inset 0 0 15px rgba(0,0,0,0.4); }
+
+  /* Мигание */
+  .lamp.blink { animation: blink 1s infinite; }
+  @keyframes blink {
+    0%, 49%   { opacity: 1; }
+    50%, 100% { opacity: 0.15; }
+  }
+
+  /* Панель информации */
+  .info {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 15px 25px;
+    text-align: center;
+    min-width: 280px;
+  }
+  .info .state { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+  .info .timer { font-size: 32px; color: #fbbf24; font-weight: bold; font-variant-numeric: tabular-nums; }
+  .info .desc  { font-size: 13px; opacity: 0.7; margin-top: 6px; }
+
+  /* Кнопки */
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  button {
+    background: #334155;
+    color: #e2e8f0;
+    border: 1px solid #475569;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.15s, transform 0.1s;
+  }
+  button:hover { background: #475569; }
+  button:active { transform: scale(0.96); }
+  button.active { background: #f59e0b; color: #111; border-color: #f59e0b; }
+</style>
+</head>
+<body>
+
+<h1>🚦 Настоящий светофор</h1>
+
+<div class="traffic-light">
+  <div class="lamp-wrap"><div class="lamp red"    id="red"></div></div>
+  <div class="lamp-wrap"><div class="lamp yellow" id="yellow"></div></div>
+  <div class="lamp-wrap"><div class="lamp green"  id="green"></div></div>
+</div>
+
+<div class="info">
+  <div class="state" id="stateName">—</div>
+  <div class="timer" id="timer">—</div>
+  <div class="desc" id="desc">—</div>
+</div>
+
+<div class="controls">
+  <button id="btnNext">⏭ Следующий сигнал</button>
+  <button id="btnMode">🌙 Ночной режим</button>
+</div>
+
+<script>
+  // Состояния светофора (по ГОСТ)
+  // red+yellow — предупреждение перед зелёным
+  const states = {
+    green:      { red: false, yellow: false, green: true,  duration: 20, name: '🟢 Зелёный',         desc: 'Движение разрешено' },
+    yellow:     { red: false, yellow: true,  green: false, duration: 3,  name: '🟡 Жёлтый',          desc: 'Запрещает движение, предупреждает о смене сигналов' },
+    red:        { red: true,  yellow: false, green: false, duration: 25, name: '🔴 Красный',         desc: 'Движение запрещено' },
+    redYellow:  { red: true,  yellow: true,  green: false, duration: 2,  name: '🔴🟡 Красный + Жёлтый', desc: 'Запрещает движение, предупреждает о разрешении' },
+    yellowBlink:{ red: false, yellow: 'blink', green: false, duration: Infinity, name: '🟡 Жёлтый мигающий', desc: 'Нерегулируемый перекрёсток (ночной режим)' }
+  };
+
+  // Порядок переключения в дневном режиме
+  const dayCycle = ['green', 'yellow', 'red', 'redYellow'];
+
+  const redEl = document.getElementById('red');
+  const yelEl = document.getElementById('yellow');
+  const grnEl = document.getElementById('green');
+  const stateNameEl = document.getElementById('stateName');
+  const timerEl = document.getElementById('timer');
+  const descEl = document.getElementById('desc');
+  const btnNext = document.getElementById('btnNext');
+  const btnMode = document.getElementById('btnMode');
+
+  let currentState = 'red';
+  let remaining = states[currentState].duration;
+  let nightMode = false;
+  let tickTimer = null;
+
+  function render() {
+    const s = states[currentState];
+
+    // Красная лампа
+    redEl.classList.toggle('on', s.red === true);
+
+    // Жёлтая лампа
+    yelEl.classList.remove('on', 'blink');
+    if (s.yellow === true) yelEl.classList.add('on');
+    else if (s.yellow === 'blink') yelEl.classList.add('blink');
+
+    // Зелёная лампа
+    grnEl.classList.toggle('on', s.green === true);
+
+    // Информация
+    stateNameEl.textContent = s.name;
+    descEl.textContent = s.desc;
+    timerEl.textContent = remaining === Infinity ? '∞' : remaining;
+  }
+
+  function tick() {
+    if (remaining === Infinity) return; // ночной режим не тикает
+    remaining--;
+    if (remaining <= 0) {
+      nextInCycle();
+    } else {
+      timerEl.textContent = remaining;
+    }
+  }
+
+  function setState(name) {
+    currentState = name;
+    remaining = states[name].duration;
+    render();
+    restartTimer();
+  }
+
+  function nextInCycle() {
+    const idx = dayCycle.indexOf(currentState);
+    const next = dayCycle[(idx + 1) % dayCycle.length];
+    setState(next);
+  }
+
+  function restartTimer() {
+    clearInterval(tickTimer);
+    if (remaining !== Infinity) {
+      tickTimer = setInterval(tick, 1000);
+    }
+  }
+
+  // Кнопки
+  btnNext.addEventListener('click', () => {
+    if (nightMode) return; // в ночном режиме переключаем вручную по циклу
+    nextInCycle();
+  });
+
+  btnMode.addEventListener('click', () => {
+    nightMode = !nightMode;
+    btnMode.classList.toggle('active', nightMode);
+    btnMode.textContent = nightMode ? '☀️ Дневной режим' : '🌙 Ночной режим';
+    setState(nightMode ? 'yellowBlink' : 'green');
+  });
+
+  // Запуск
+  render();
+  restartTimer();
+</script>
+
+</body>
+</html>
